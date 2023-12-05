@@ -15,38 +15,41 @@ class OrderTrackingScreen extends StatelessWidget {
         body: SingleChildScrollView(
           padding: EdgeInsets.all(16.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-             
+              // Product Details
               Text(
-                'Track Order:',
-                style: TextStyle(fontWeight: FontWeight.bold),
+                'Videography Drone',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
-              Text('Videography Drone', style: TextStyle(fontWeight: FontWeight.bold)),
-              Text('Ultra HD', style: TextStyle(fontWeight: FontWeight.bold)),
-              Text('Price: Rupees 1050.00', style: TextStyle(fontWeight: FontWeight.bold)),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Text('Product ID: 123456'),
-                ],
+              Text(
+                'Ultra HD\n₹1050.00',
+                style: TextStyle(fontSize: 16),
               ),
-              SizedBox(height: 20), 
+              SizedBox(height: 8),
 
-              
+              // Product ID
+              Align(
+                alignment: Alignment.centerRight,
+                child: Text('Product ID: 123456'),
+              ),
+              SizedBox(height: 20),
+
+              // Order Summary
               Text(
                 'Order Summary',
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 8),
 
+              // Order Details
               _buildOrderDetail('Drone Type:', 'Videography Drone'),
               _buildOrderDetail('Category:', 'Ultra HD'),
-              _buildOrderDetail('Price:', 'Rupees 1050.00'),
+              _buildOrderDetail('Price:', '₹1050.00'),
               _buildOrderDetail('Product ID:', '123456'),
-              SizedBox(height: 20), 
+              SizedBox(height: 20),
 
-              
+              // Operator Info
               Text(
                 'Operator Information',
                 style: TextStyle(fontWeight: FontWeight.bold),
@@ -54,20 +57,39 @@ class OrderTrackingScreen extends StatelessWidget {
               SizedBox(height: 8),
 
               _buildOperatorInfo('Name:', 'Operator One'),
-              _buildOperatorInfo('Mobile Number:', '1234567890'),
-              SizedBox(height: 20), 
+              _buildOperatorInfo('Mobile:', '1234567890'),
+              SizedBox(height: 20),
 
-              
+              // Order Status
               Text(
-                'Order Status Tracking',
+                'Order Status',
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 8),
 
-              _buildOrderStatus('Drone Booked', 'Date: 2023-12-05 10:00 AM'),
-              _buildOrderStatus('Pilot on the way to your location', 'Date: 2023-12-05 12:30 PM'),
-              _buildOrderStatus('Payment Completed', 'Date: 2023-12-05 01:45 PM'),
-              _buildOrderStatus('Service Completed', 'Date: 2023-12-05 03:00 PM'),
+              // Tracking Circles and Lines
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  _buildTrackingCircle(true),
+                  _buildTrackingLine(),
+                  _buildTrackingCircle(false),
+                  _buildTrackingLine(),
+                  _buildTrackingCircle(false),
+                  _buildTrackingLine(),
+                  _buildTrackingCircle(false),
+                ],
+              ),
+              SizedBox(height: 8),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  _buildTrackingText('Drone Booked'),
+                  _buildTrackingText('Pilot On the Way'),
+                  _buildTrackingText('Payment Completed'),
+                  _buildTrackingText('Service Completed'),
+                ],
+              ),
             ],
           ),
         ),
@@ -75,7 +97,7 @@ class OrderTrackingScreen extends StatelessWidget {
     );
   }
 
-  
+  // Widget to display order detail with label and value aligned
   Widget _buildOrderDetail(String label, String value) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -86,7 +108,7 @@ class OrderTrackingScreen extends StatelessWidget {
     );
   }
 
-  
+  // Widget to display operator information with label and value aligned
   Widget _buildOperatorInfo(String label, String value) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -97,15 +119,37 @@ class OrderTrackingScreen extends StatelessWidget {
     );
   }
 
-  
-  Widget _buildOrderStatus(String status, String dateTime) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(status),
-        Text(dateTime),
-        SizedBox(height: 10),
-      ],
+  // Widget to build the tracking circle
+  Widget _buildTrackingCircle(bool isActive) {
+    return Container(
+      width: 24,
+      height: 24,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: isActive ? Colors.blue : Colors.grey,
+      ),
+    );
+  }
+
+  // Widget to build the tracking line
+  Widget _buildTrackingLine() {
+    return Expanded(
+      child: Container(
+        height: 2,
+        color: Colors.grey,
+      ),
+    );
+  }
+
+  // Widget to build the tracking text
+  Widget _buildTrackingText(String text) {
+    return SizedBox(
+      width: 100,
+      child: Text(
+        text,
+        textAlign: TextAlign.center,
+        style: TextStyle(fontSize: 12),
+      ),
     );
   }
 }
